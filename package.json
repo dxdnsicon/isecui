@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "基于webpack3.0+vue2的打包优化",
   "main": "index.js",
-  "bin": "index.js",
+  "bin": {
+    "isecui":"index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "main":"index.js",
   "author": "shiningding <shiningding@tencent.com>",
   "license": "ISC",
   "dependencies": {
@@ -51,5 +54,14 @@
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0",
     "webpack-parallel-uglify-plugin": "^1.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dxdnsicon/isecui.git"
+  },
+  "files":[
+    "build",
+    "entry",
+    "server"
+  ]
 }
