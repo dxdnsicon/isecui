@@ -4,12 +4,11 @@
   "description": "基于webpack3.0+vue2的打包优化",
   "main": "index.js",
   "bin": {
-    "isecui":"src/index.js"
+    "isecui": "src/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "main":"index.js",
   "author": "shiningding <shiningding@tencent.com>",
   "license": "ISC",
   "dependencies": {
@@ -24,6 +23,7 @@
     "babel-plugin-transform-vue-jsx": "^3.3.0",
     "babel-preset-es2015": "^6.14.0",
     "commander": "^2.19.0",
+    "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^0.28.0",
     "extract-text-webpack-plugin": "^3.0.1",
     "file-loader": "^1.1.4",
@@ -34,6 +34,7 @@
     "moment": "^2.23.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^3.0.0",
+    "os": "^0.1.1",
     "rimraf": "^2.6.2",
     "semver": "^5.3.0",
     "shelljs": "^0.8.3",
@@ -59,7 +60,7 @@
     "type": "git",
     "url": "https://github.com/dxdnsicon/isecui.git"
   },
-  "files":[
+  "files": [
     "build",
     "entry",
     "server"

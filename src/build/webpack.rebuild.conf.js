@@ -1,13 +1,14 @@
 //webpack配置劫持重写部分 配置，优化打包速度。
 //这里要使用绝对路径。 指向项目根目录  shiningding
 var path = require('path')
-const os = require('os')
-var moment  = require('moment')
-var config = require(path.resolve(".")+'/config')
 const modulePath = path.join(__dirname+'../../../node_modules/');
+const os = require(modulePath+'os')
+var moment  = require(modulePath+'moment')
+var config = require(path.resolve(".")+'/config')
+
 const HappyPack = require(modulePath+'happypack')
-const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const ParallelUglifyPlugin = require(modulePath+'webpack-parallel-uglify-plugin');
+const UglifyJsPlugin = require(modulePath+'uglifyjs-webpack-plugin')
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 //定义一个happypack 解析器
@@ -56,6 +57,12 @@ function rebuildConfig(config){
     console.log(list)
     config.plugins.splice(list[1],1)
     config.plugins.push(ugli)
+    config.resolveLoader= {
+      modules: [
+        modulePath,
+        resolve('node_modules')
+      ]
+    }
     if(list[0] == -1){
         config.plugins.push(happy)
         rules.forEach(function(i,item){

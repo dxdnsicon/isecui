@@ -3,13 +3,13 @@ var utils = require('./utils')
 var config = require(path.resolve(".")+'/config')
 var vueLoaderConfig = require('./vue-loader.conf')
 const webpack = require('webpack')
-const px2rem = require('postcss-px2rem')
+// const px2rem = require('postcss-px2rem')
 const postcss = require('postcss')
 const os = require('os')
 
 
 //这里要使用绝对路径。 指向目标项目根目录
-const modulePath = path.join(__dirname+'../../node_modules/');
+const modulePath = path.join(__dirname+'../../../node_modules/');
 
 const HappyPack = require(modulePath+'happypack')
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })

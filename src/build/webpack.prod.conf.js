@@ -1,16 +1,17 @@
 'use strict'
 const path = require('path')
+const modulePath = path.join(__dirname+'../../../node_modules/');
 const utils = require('./utils')
-const webpack = require('webpack')
+const webpack = require(modulePath+'webpack')
 const config = require(path.resolve(".")+'/config')
-const merge = require('webpack-merge')
+const merge = require(modulePath+'webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
+const CopyWebpackPlugin = require(modulePath+'copy-webpack-plugin')
+const HtmlWebpackPlugin = require(modulePath+'html-webpack-plugin')
+const ExtractTextPlugin = require(modulePath+'extract-text-webpack-plugin')
+const OptimizeCSSPlugin = require(modulePath+'optimize-css-assets-webpack-plugin')
+const UglifyJsPlugin = require(modulePath+'uglifyjs-webpack-plugin')
+const ParallelUglifyPlugin = require(modulePath+'webpack-parallel-uglify-plugin');
 // const ZipPlugin = require('zip-webpack-plugin')
 // const WebpackZipPlugin =require('webpack-zip-plugin')
 const env = process.env.NODE_ENV === 'testing'

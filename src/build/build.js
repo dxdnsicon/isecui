@@ -1,21 +1,22 @@
 module.exports = function(){
-    var moment  = require('moment')
+    
+    process.env.NODE_ENV = 'production'
+    var path = require('path')
+    //这里要使用绝对路径。 指向项目根目录  shiningding
+    const modulePath = path.join(__dirname+'../../../node_modules/');
+    var ora = require(modulePath+'ora')
+    var moment  = require(modulePath+'moment')
     var pretime = moment().format('X');
     console.log('\x1B[32m','start:'+pretime)
     console.log('\x1b[0m')
     require('./check-versions')()
-    process.env.NODE_ENV = 'production'
-    var path = require('path')
-    var ora = require('ora')
-    var rm = require('rimraf')
-    var chalk = require('chalk')
-    var webpack = require('webpack')
+
+    var rm = require(modulePath+'rimraf')
+    var chalk = require(modulePath+'chalk')
+    var webpack = require(modulePath+'webpack')
     var config = require(path.resolve(".")+'/config')
-
-    //这里要使用绝对路径。 指向项目根目录  shiningding
-    const modulePath = path.join(__dirname+'../../../node_modules/');
-    var webpackConfig = require(resolve('build/webpack.prod.conf'))
-
+    var webpackConfig = require(resolve('build/webpack.prod.conf'))   //使用目标项目的conf 配置比较安全
+    // var webpackConfig = require('./webpack.prod.conf')
     var rebuildConfig  =require('./webpack.rebuild.conf.js')(webpackConfig);
 
     var spinner = ora('building for production...')
