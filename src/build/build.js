@@ -13,7 +13,7 @@ module.exports = function(){
     var config = require(path.resolve(".")+'/config')
 
     //这里要使用绝对路径。 指向项目根目录  shiningding
-    const modulePath = path.join(__dirname+'../../node_modules/');
+    const modulePath = path.join(__dirname+'../../../node_modules/');
     var webpackConfig = require(resolve('build/webpack.prod.conf'))
 
     var rebuildConfig  =require('./webpack.rebuild.conf.js')(webpackConfig);

@@ -4,7 +4,7 @@
   "description": "基于webpack3.0+vue2的打包优化",
   "main": "index.js",
   "bin": {
-    "isecui":"index.js"
+    "isecui":"src/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

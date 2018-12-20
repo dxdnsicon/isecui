@@ -1,6 +1,6 @@
 const shelljs  = require('shelljs/global');
 var path = require('path')
-const modulePath = path.join(__dirname+'../../node_modules/');
+const modulePath = path.join(__dirname+'../../../../node_modules/');
 function resolve (dir) {
   return path.join(path.resolve("."),'', dir)
 }
