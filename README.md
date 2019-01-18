@@ -1,12 +1,9 @@
 ### 使用方式
-依赖webpacl3.0 +vue2.0
-如果是vue-cli的项目结构可以直接使用
+webpack4 打包升级
+基于vue-cli2.0的项目全局安装后直接使用isecui build
 
 ```
 npm install -g isecui
 //打包vue-cli项目
-isecui install
 isecui build  
-//启动vue-cli项目
-isecui run dev
 ```
