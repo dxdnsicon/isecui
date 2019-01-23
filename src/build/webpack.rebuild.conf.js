@@ -13,6 +13,9 @@ const CopyWebpackPlugin = require(modulePath + 'copy-webpack-plugin')
 const HtmlWebpackPlugin = require(modulePath + 'html-webpack-plugin')
 const VueLoaderPlugin = require(path.join(modulePath + '/vue-loader/lib/plugin'))
 const utils = require('./utils')
+var ctx = require(modulePath + 'chalk')
+const chalk = new ctx.constructor({ enabled: true, level: 1 });
+var origin =  config.origin || '';
 
 const ugli = new ParallelUglifyPlugin({
     cacheDir: '.cache/',
@@ -68,7 +71,7 @@ function rebuildForWebpack4() {
     var pretime = moment().format('X');
     console.log('\x1B[32m', 'rebuild:' + pretime)
     console.log('\x1b[0m')
-    return {
+    var webpackConfig = {
         mode: "production",
         entry: {
             app: path.join(resolve('src'), '/main.js'),
@@ -80,7 +83,7 @@ function rebuildForWebpack4() {
             filename: utils.assetsPath('js/[name].[chunkhash].js'),
             chunkFilename: utils.assetsPath('js/[id].[chunkhash].js'),
             publicPath: process.env.NODE_ENV === 'production' ?
-                config.build.assetsPublicPath : config.dev.assetsPublicPath
+            (origin + config.build.assetsPublicPath) : config.dev.assetsPublicPath
         },
         optimization: optimization,
         resolve: {
@@ -140,7 +143,9 @@ function rebuildForWebpack4() {
         module: {
             rules: [{
                     test: /\.vue?$/,
-                    loader: path.join(modulePath + 'vue-loader')
+                    use:[{
+                        loader:path.join(modulePath + 'vue-loader')
+                    }]
                 },
                 {
                     test: /\.css?$/,
@@ -183,7 +188,9 @@ function rebuildForWebpack4() {
                 },
                 {
                     test: /\.js$/,
-                    loader: modulePath + 'happypack/loader?id=happy-babel-js',
+                    use:[{
+                        loader: modulePath + 'happypack/loader?id=happy-babel-js',
+                    }],
                     include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
                 },
                 {
@@ -213,5 +220,16 @@ function rebuildForWebpack4() {
             ]
         }
     }
+    if(config.origin){
+        //前缀模式
+        console.log(chalk.blue('Prefix path detected:'+config.origin))
+        var originUrlLoader = {loader:path.resolve(__dirname, './isec-h5-url-loader.js')}
+        var rules = webpackConfig.module.rules;
+        for(var i=0;i<5;i++){
+            rules[i].use.unshift(originUrlLoader)
+        }
+        rules[5].use.push(originUrlLoader)
+    }
+    return webpackConfig
 }
 module.exports = rebuildForWebpack4
