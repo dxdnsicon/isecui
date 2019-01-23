@@ -1,18 +1,18 @@
 //webpack配置劫持重写部分 配置，优化打包速度。
 //这里要使用绝对路径。 指向项目根目录  shiningding
-var path = require('path')
+const path = require('path')
 const os = require('os')
-var moment = require('moment')
-var config = require(path.resolve(".") + '/config')
-const modulePath = path.join(__dirname + '../../../node_modules/');
+const config = require(path.resolve(".") + '/config')
+const modulePath = path.join(__dirname + '../../../node_modules/')
+const moment = require(modulePath + 'moment')
 const HappyPack = require(modulePath + 'happypack')
-const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
+const ParallelUglifyPlugin = require(modulePath + 'webpack-parallel-uglify-plugin')
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require(modulePath + 'mini-css-extract-plugin')
 const CopyWebpackPlugin = require(modulePath + 'copy-webpack-plugin')
 const HtmlWebpackPlugin = require(modulePath + 'html-webpack-plugin')
 const VueLoaderPlugin = require(path.join(modulePath + '/vue-loader/lib/plugin'))
-var utils = require('./utils')
+const utils = require('./utils')
 
 const ugli = new ParallelUglifyPlugin({
     cacheDir: '.cache/',
@@ -28,35 +28,35 @@ const ugli = new ParallelUglifyPlugin({
 })
 const optimization = {
     runtimeChunk: {
-      name: 'manifest'
+        name: 'manifest'
     },
     minimizer: [
         ugli
-    ], 
-    splitChunks:{
-      chunks: 'async',
-      minSize: 30000,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      name: false,
-      cacheGroups: {
-        vendor: {
-          name: 'vendor',
-          chunks: 'initial',
-          priority: -10,
-          reuseExistingChunk: false,
-          test: /node_modules\/(.*)\.js/
-        },
-        styles: {
-          name: 'styles',
-          test: /\.(postcss|less|scss|css)$/,
-          chunks: 'all',
-          minChunks: 1,
-          reuseExistingChunk: true,
-          enforce: true
+    ],
+    splitChunks: {
+        chunks: 'async',
+        minSize: 30000,
+        minChunks: 1,
+        maxAsyncRequests: 5,
+        maxInitialRequests: 3,
+        name: false,
+        cacheGroups: {
+            vendor: {
+                name: 'vendor',
+                chunks: 'initial',
+                priority: -10,
+                reuseExistingChunk: false,
+                test: /node_modules\/(.*)\.js/
+            },
+            styles: {
+                name: 'styles',
+                test: /\.(postcss|less|scss|css)$/,
+                chunks: 'all',
+                minChunks: 1,
+                reuseExistingChunk: true,
+                enforce: true
+            }
         }
-      }
     }
 }
 
@@ -64,7 +64,7 @@ function resolve(dir) {
     return path.join(path.resolve("."), '', dir)
 }
 
-function rebuildForWebpack4(webpackConfig) {
+function rebuildForWebpack4() {
     var pretime = moment().format('X');
     console.log('\x1B[32m', 'rebuild:' + pretime)
     console.log('\x1b[0m')
@@ -74,6 +74,7 @@ function rebuildForWebpack4(webpackConfig) {
             app: path.join(resolve('src'), '/main.js'),
             "babel-polyfill": modulePath + "babel-polyfill"
         },
+        devtool: config.build.productionSourceMap ? config.build.devtool : false,
         output: {
             path: config.build.assetsRoot,
             filename: utils.assetsPath('js/[name].[chunkhash].js'),
@@ -182,7 +183,7 @@ function rebuildForWebpack4(webpackConfig) {
                 },
                 {
                     test: /\.js$/,
-                    loader: 'happypack/loader?id=happy-babel-js',
+                    loader: modulePath + 'happypack/loader?id=happy-babel-js',
                     include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
                 },
                 {
